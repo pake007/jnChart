@@ -1,0 +1,172 @@
+.jnChart {
+  width: 100%;
+  position: relative;
+}
+
+.jnChart .jnChart-body {
+  background: url(/images/bg.png) repeat;
+  position: relative;
+}
+
+.jnChart .jnChart-body .jnChart_x_ordinate {
+  position: absolute;
+  height: 20px;
+  bottom: 6px;
+  left: 80px;
+  border-top: 5px solid black;
+}
+
+.jnChart .jnChart-body .jnChart_x_ordinate .jnChart_x_tick {
+  height: 100%;
+  text-align: left;
+  float: left;
+}
+
+.jnChart .jnChart-body .jnChart_x_ordinate .jnChart_x_final {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  height: 100%;
+  font-size: 13px;
+  color: #7b7b7b;
+}
+
+.jnChart .jnChart-body .jnChart_y_ordinate {
+  position: absolute;
+  width: 70px;
+  bottom: 31px;
+  left: 10px;
+  border-right: 5px solid black;
+}
+
+.jnChart .jnChart-body .jnChart_y_ordinate .jnChart_y_tick {
+  width: 100%;
+}
+
+.jnChart .jnChart-body .jnChart_y_ordinate .jnChart_y_final {
+  position: absolute;
+  left: 50px;
+  top: -25px;
+  width: 150px;
+  font-size: 15px;
+  color: #7b7b7b;
+}
+
+.jnChart .jnChart-body .jnChart_y_ordinate .jnChart_y_tick, .jnChart .jnChart-body .jnChart_y_ordinate .jnChart_y_start {
+  text-align: right;
+}
+
+.jnChart .jnChart-body .jnChart_y_ordinate .jnChart_y_tick span, .jnChart .jnChart-body .jnChart_y_ordinate .jnChart_y_start span {
+  position: relative;
+  top: -7px;
+  display: block;
+  margin-right: 10px;
+}
+
+.jnChart .jnChart-body .jnChart-content {
+  position: absolute;
+  width: 86.5%;
+  height: 80%;
+  bottom: 31px;
+  left: 80px;
+  margin-left: 5px;
+}
+
+.jnChart .jnChart-body .jnChart-content .jnChart_row {
+  width: 100%;
+  border-top: 1px dotted grey;
+}
+
+.jnChart .jnChart-body .jnChart-content .jnChart_bar {
+  width: 50px;
+  position: absolute;
+  z-index: 100;
+  bottom: 0px;
+}
+
+.jnChart .jnChart-body .jnChart-content .jnChart_point {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  z-index: 101;
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+.jnChart .jnChart-body .jnChart-content .jnChart_bartop {
+  border: 1px solid #e1e1e1;
+  background-color: white;
+  text-align: center;
+  width: 30px;
+  height: 15px;
+  position: absolute;
+  font-size: 10px;
+}
+
+.jnChart .jnChart-body .jnChart-content .jnChart_bartop span {
+  position: relative;
+  top: -2px;
+}
+
+.jnChart .jnChart-body .jnChart-content .jnChart_note {
+  border: 1px solid #e1e1e1;
+  width: 135px;
+  height: auto;
+  background-color: white;
+  padding: 10px;
+  position: absolute;
+  left: 0px;
+  z-index: 150;
+}
+
+.jnChart .jnChart-body .jnChart-content .jnChart_note p {
+  margin-bottom: 5px;
+  line-height: 12px;
+}
+
+.jnChart .jnChart-body .jnChart-content .jnChart_note span.jnChart_note_arrow {
+  position: absolute;
+  bottom: -9px;
+  left: 0px;
+  width: 100%;
+  height: 10px;
+  background-image: url("/images/note_arrow.png");
+}
+
+.jnChart .jnChart-body .jnChart-content .jnChart_zone {
+  position: relative;
+  left: -2%;
+  width: 102%;
+}
+
+.jnChart .jnChart-body .jnChart-content .jnChart_zone span {
+  position: absolute;
+  left: -60px;
+  width: 60px;
+  line-height: 13px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.jnChart .jnChart-body .jnChart-content .diet_green {
+  background-color: #87a819;
+}
+
+.jnChart .jnChart-body .jnChart-content .diet_red {
+  background-color: #c80017;
+}
+
+.jnChart .jnChart-body .jnChart-content .diet_orange {
+  background-color: #f79831;
+}
+
+.jnChart .jnChart-body .jnChart-content .weight_same, .jnChart .jnChart-body .jnChart-content .weight_red_up, .jnChart .jnChart-body .jnChart-content .weight_red_down, .jnChart .jnChart-body .jnChart-content .weight_green_up, .jnChart .jnChart-body .jnChart-content .weight_green_down {
+  background-repeat: no-repeat;
+  background-position: 12px 0;
+}
+
+
+.jnChart .jnChart-body .jnChart_lineCanvas, .jnChart .jnChart-body .jnChart_hoverCanvas {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

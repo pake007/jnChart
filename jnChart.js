@@ -69,15 +69,15 @@ jnChart = (function($) {
 
   jnChart.prototype = {
     build: function(){
-      this.div.append("<div class='jnChart'><div class='jnChart-body'><div class='jnChart-table'></div></div></div>");
-      var $chartTb = this.div.find(".jnChart-table");
-      this.chartTb = $chartTb;
+      this.div.append("<div class='jnChart'><div class='jnChart-body'></div></div>");
+      var $chartBd = this.div.find(".jnChart-body");
+      this.chartBd = $chartBd;
       // set the height of chart
-      $chartTb.css("height", this.height);
+      $chartBd.css("height", this.height);
 
       var $chartCt = $('<div/>', {'class': 'jnChart-content'});
       this.chartCt = $chartCt;
-      $chartTb.append($chartCt);
+      $chartBd.append($chartCt);
 
       if(this.ys <= 0) this.ys = 5;   // restore default
       if(this.xs <= 0) this.xs = 7;
@@ -143,7 +143,7 @@ jnChart = (function($) {
       $x_ordinate.find(".jnChart_x_final").css("width", x_final_width);
       $x_ordinate.find(".jnChart_x_tick").css("width", x_unit_width);
 
-      this.chartTb.append($x_ordinate);
+      this.chartBd.append($x_ordinate);
     },
 
     // --------------------------- build y ordinate ------------------------------
@@ -165,8 +165,8 @@ jnChart = (function($) {
 
       // set and adjust the height of y-ordinate according to the total height of the chart
       var original_y_ordinate_height = this.div.height() * 0.8;
-      var $chartBody = this.chartTb.closest(".jnChart-body");
-      var $x_ordinate = this.chartTb.find(".jnChart_x_ordinate");
+      var $chartBody = this.chartBd.closest(".jnChart-body");
+      var $x_ordinate = this.chartBd.find(".jnChart_x_ordinate");
       var x_ordinate_height = $x_ordinate.outerHeight();
       var x_ordinate_from_bottom = parseInt($x_ordinate.css("bottom"));
       var top_space_height = $chartBody.outerHeight() - x_ordinate_height - x_ordinate_from_bottom - original_y_ordinate_height;
@@ -179,9 +179,9 @@ jnChart = (function($) {
       // set the height of y unit and chart row
       var y_tick_height = this.chartCt.height() / this.ys;
       $y_ordinate.find(".jnChart_y_tick").css("height", y_tick_height);
-      this.chartTb.find(".jnChart_row").css("height", y_tick_height - 1);  // minus the dotted border width
+      this.chartBd.find(".jnChart_row").css("height", y_tick_height - 1);  // minus the dotted border width
 
-      this.chartTb.append($y_ordinate);
+      this.chartBd.append($y_ordinate);
     },
 
     // ------------------------ append 2 canvas div (one for lines, one for hover points) -----------------------
@@ -396,8 +396,8 @@ jnChart = (function($) {
     calculateRecordPosition: function(record) {
       var position = {};
 
-      var y_tick_height = this.chartTb.find(".jnChart_y_tick").height();
-      var x_tick_width = this.chartTb.find(".jnChart_x_tick").width();
+      var y_tick_height = this.chartBd.find(".jnChart_y_tick").height();
+      var x_tick_width = this.chartBd.find(".jnChart_x_tick").width();
       if(record.attr("data-value") < 0){
         position["height"] = 0;
       } else {
