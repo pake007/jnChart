@@ -32,8 +32,6 @@ jnChart = (function($) {
   var defaults = {
     height: 250,
     datas: [],
-    xs: 7,
-    ys: 5,
     x_unit: "",
     x_start: 0,
     y_unit: "",
@@ -78,9 +76,8 @@ jnChart = (function($) {
       var $chartCt = $('<div/>', {'class': 'jnChart-content'});
       this.chartCt = $chartCt;
       $chartBd.append($chartCt);
-
-      if(this.ys <= 0) this.ys = 5;   // restore default
-      if(this.xs <= 0) this.xs = 7;
+      
+      this.adjustOptions();
 
       this.buildRows();
       // build ordinates
@@ -119,6 +116,37 @@ jnChart = (function($) {
       if(this.highlight_zones && (this.highlight_zones instanceof Array)) {
         this.addHighlightZones();
       }
+    },
+    
+    // --------------------- adjust some options based on datas ------------------
+    adjustOptions: function(){
+      if(!this.xs){
+        if(this.datas.length > 0){
+          this.xs = this.datas.length;
+        } else {
+          this.xs = 7; // default value
+        }
+      }
+      if(!this.ys){
+        if(this.datas.length > 0){
+          this.ys = parseInt(this.findMaxData(this.datas)/this.step)+1;
+        } else {
+          this.ys = 5; // default value
+        }
+      }
+    },
+    
+    // --------------------- find maximun value in datas -------------------------
+    findMaxData: function(datas){
+      if(!datas || datas.length == 0) return null;
+      var max;
+      for(var i=0; i<datas.length; i++){
+        if(!datas[i]) continue;
+        if(!max || datas[i] > max) {
+          max = datas[i];
+        }
+      }
+      return max;
     },
 
     // --------------------------- build x ordinate ------------------------------
