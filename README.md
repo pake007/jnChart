@@ -40,7 +40,7 @@ By default, the jnChart will render your data with vertical bars, you don't need
 
 ### Draw lines
 
-If you want to draw a broken line, you need to set the option draw_lines: true, if your only want to draw lines, also set the option draw_bars: false, otherwise it will render both lines and bars.
+If you want to draw a broken line, you need to set the option **draw_lines: true**, if your only want to draw lines, also set the option **draw_bars: false**, otherwise it will render both lines and bars.
 
 ```javascript
 $("#dashboard").jnChart({
