@@ -36,7 +36,7 @@ Then refresh your page, you will see a chart with 6 bars !
 
 ### Draw bars
 
-By default, the jnChart will render your data with vertical bars, you don't need to specify any other options, just like the code above.
+By default, the jnChart will render your data as vertical bars, you don't need to specify any other options, just like the code above.
 
 ### Draw lines
 
