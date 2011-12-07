@@ -695,12 +695,13 @@ jnChart = (function($) {
     var bars = $chart.find(".jnChart_bar");
     top_datas = top_datas || [];
 
-    for(var i=0; i < bars.length; i++) {
-      $(bars[i]).find(".jnChart_bartop").removeClass("hidden");
-      if(top_datas[i] != undefined && top_datas[i] != "") {
-        $(bars[i]).find(".jnChart_bartop span").text(top_datas[i]);
+    for(var i=0; i < top_datas.length; i++) {
+      var $bar = $chart.find(".jnChart_bar[data-index=" + i + "]");
+      $bar.find(".jnChart_bartop").removeClass("hidden");
+      if(top_datas[i] != undefined && top_datas[i] != ""){
+        $bar.find(".jnChart_bartop span").text(top_datas[i]);
       } else {
-        $(bars[i]).find(".jnChart_bartop").addClass("hidden");
+        $bar.find(".jnChart_bartop").addClass("hidden");
       }
     }
   };
