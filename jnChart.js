@@ -1,11 +1,9 @@
 /*
-jnChart 1.0
-Requires jQuery version: >= 1.4
+jnChart 1.0.1
+Requires jQuery version: >= 1.3
 Requires excanvas library to handle IE canvas drawing (http://excanvas.sourceforge.net/)
 
-2011 - ? -- Jimmy Huang, Ekohe Ltd
-
-Copyright (c) 2010-2012 Jimmy Huang & Ekohe Ltd
+Copyright (c) 2011 Jimmy Huang
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -53,6 +51,7 @@ jnChart = (function($) {
     draw_bars: true,
     draw_lines: false,
     canvas_top_padding: 10,
+    chart_top_padding: 30,
     line_width: 3,
     line_color: "#F79831",
     point_color: "#000000",
@@ -87,7 +86,7 @@ jnChart = (function($) {
       // build ordinates
       this.buildXOrdinate();
       this.buildYOrdinate();
-
+      
       // build canvas
       this.buildCanvas();
 
@@ -100,10 +99,7 @@ jnChart = (function($) {
       if(this.draw_lines) {
         this.buildLines();
         this.setPointsPosition();
-        var chart = this;
-        setTimeout(function(){
-          chart.drawCanvasLines();
-        }, 100);    // delay 100ms to wait excanvas execute in IE
+        this.drawCanvasLines();
       }
 
       // draw bar top span
@@ -128,12 +124,12 @@ jnChart = (function($) {
     // --------------------------- build x ordinate ------------------------------
     buildXOrdinate: function(){
       var $x_ordinate = $('<div/>', {'class': 'jnChart_x_ordinate'});
-      for(var xi=0; xi <= this.xs; xi++){
+      for(var xi=this.x_start; xi <= this.xs; xi++){
         var label;
         if(this.x_labels){
           label = this.x_labels[xi]
         } else {
-          label = this.x_start + xi;
+          label = xi;
         }
         $x_ordinate.append("<div class='jnChart_x_tick'>" + label + "</div>");
       }
@@ -174,8 +170,8 @@ jnChart = (function($) {
       var x_ordinate_height = $x_ordinate.outerHeight();
       var x_ordinate_from_bottom = parseInt($x_ordinate.css("bottom"));
       var top_space_height = $chartBody.outerHeight() - x_ordinate_height - x_ordinate_from_bottom - original_y_ordinate_height;
-      if (top_space_height < 30) {  // if the top space too narrow, adjust the chart height
-        var new_y_ordinate_height = $chartBody.outerHeight() - x_ordinate_height - x_ordinate_from_bottom - 30;
+      if (top_space_height < this.chart_top_padding) {  // if the top space too narrow, adjust the chart height
+        var new_y_ordinate_height = $chartBody.outerHeight() - x_ordinate_height - x_ordinate_from_bottom - this.chart_top_padding;
         $y_ordinate.css("height", new_y_ordinate_height);
         this.chartCt.css("height", new_y_ordinate_height);
       }
@@ -391,7 +387,7 @@ jnChart = (function($) {
         $(this).css("left", position["left"] - point_width/2);
         // save canvas points position to be used for drawing canvas lines
         if(position["height"] >= 0) {
-          chart.canvasPoints.push({y: canvas_height - position["height"], x: position["left"]});
+          chart.canvasPoints.push({y: canvas_height - position["height"], x: position["left"], index: $(this).attr("data-index")});
         }
       });
     },
@@ -437,9 +433,11 @@ jnChart = (function($) {
       var canvasPoints = this.canvasPoints;
 
       // if can't user canvas (IE)
-      if(!(canvas && canvas.getContext && hover_canvas && hover_canvas.getContext) && G_vmlCanvasManager){
-        G_vmlCanvasManager.initElement(canvas);
-        G_vmlCanvasManager.initElement(hover_canvas);
+      if(!(canvas && canvas.getContext && hover_canvas && hover_canvas.getContext)){
+        if(G_vmlCanvasManager){
+          G_vmlCanvasManager.initElement(canvas);
+          G_vmlCanvasManager.initElement(hover_canvas);
+        }
       }
       var ctx = canvas.getContext('2d');
       var hctx = hover_canvas.getContext('2d');
@@ -475,15 +473,17 @@ jnChart = (function($) {
         ctx.closePath();
         ctx.fill();
       }
-
+      
+      var chart = this;
       // unbind old event first
       this.chartCt.find(".jnChart_point").unbind("mouseenter.point").unbind("mouseleave.point");
       // bind hover event to canvas point div
       this.chartCt.find(".jnChart_point").bind("mouseenter.point", function(event){
         // draw hover point
         var index = $(this).attr("data-index");
-        var x = canvasPoints[index]["x"];
-        var y = canvasPoints[index]["y"];
+        var canvas_point = chart.findCanvasPoint(canvasPoints, index);
+        var x = canvas_point["x"];
+        var y = canvas_point["y"];
         // inner round
         hctx.beginPath();
         hctx.arc(x, y, 5, 0, Math.PI*2, true);
@@ -497,6 +497,13 @@ jnChart = (function($) {
       }).bind("mouseleave.point", function(event){
         hctx.clearRect(0, 0, hctx.canvas.width, hctx.canvas.height)
       });
+    },
+    
+    findCanvasPoint: function(points, index){
+      for(var i=0; i<points.length; i++){
+        if(points[i]["index"] == index)
+          return points[i];
+      }
     },
 
     // ----------------------- set the bar top span position --------------------------------
