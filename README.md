@@ -1,6 +1,6 @@
 # jnChart
 
-jnChart is a jQuery plugin that can render simple chart, the current version is able to draw bars and lines in the chart. Especially, you can customize the hint text and style very easily, that's why I named this plugin jnChart (jQuery notable Chart).
+jnChart is a jQuery plugin that can render simple chart, the current version is able to draw bars and lines in the chart. Especially, you can customize the hint text and style very easily, that's why I named this plugin jnChart (jQuery note-able Chart).
 
 ## Installation
 
