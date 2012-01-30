@@ -204,8 +204,13 @@ jnChart = (function($) {
         this.chartCt.css("height", new_y_ordinate_height);
       }
 
-      // set the height of y unit and chart row
-      var y_tick_height = this.chartCt.height() / this.ys;
+      // set the height of y unit and chart row, 
+      // also set final height of y-ordinate and chart content (because we parseInt for y_tick height, so it need to adjust height again to delete the offset)
+      var y_tick_height = parseInt(new_y_ordinate_height / this.ys);
+      var final_chart_height = y_tick_height * this.ys;
+      $y_ordinate.css("height", final_chart_height);
+      this.chartCt.css("height", final_chart_height);
+
       $y_ordinate.find(".jnChart_y_tick").css("height", y_tick_height);
       this.chartBd.find(".jnChart_row").css("height", y_tick_height - 1);  // minus the dotted border width
 
